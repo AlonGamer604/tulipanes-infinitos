@@ -16,10 +16,22 @@ body{
   overflow:hidden;
   height:100vh;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.2) 1px, transparent 2px),
-    radial-gradient(circle at 80% 30%, rgba(255,255,255,.15) 1px, transparent 2px),
-    linear-gradient(to bottom, #0f1020 0%, #1b1d40 40%, #2e6b2e 75%, #1f4d1f 100%);
-  background-size: 300px 300px, 400px 400px, 100% 100%;
+  radial-gradient(white 1px, transparent 1px),
+  radial-gradient(white 1px, transparent 1px),
+  radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px),
+  linear-gradient(to bottom, 
+    #0f1020 0%, 
+    #1b1d40 70%, 
+    #2e6b2e 85%, 
+    #1f4d1f 100%
+  );
+
+background-size:
+  120px 120px,
+  200px 200px,
+  300px 300px,
+  100% 100%;
+
   perspective: 800px;
   font-family: 'Great Vibes', cursive;
 }
@@ -254,6 +266,14 @@ body{
   opacity:0;
   animation: float 12s infinite ease-in-out;
 }
+.firefly:nth-child(odd){
+  animation-duration: 14s;
+}
+
+.firefly:nth-child(even){
+  animation-duration: 10s;
+}
+
 
 /* Glow extra */
 .firefly::after{
@@ -323,7 +343,74 @@ body{
       0 0 150px rgba(255,255,255,0.25);
   }
 }
+/* =============================
+   ESTRELLA FUGAZ
+============================= */
 
+/* =============================
+   ESTRELLA FUGAZ REALISTA
+============================= */
+
+/* =============================
+   ESTRELLA FUGAZ DINÁMICA
+============================= */
+
+.shooting-star{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:white;
+  box-shadow:
+    0 0 8px white,
+    0 0 20px rgba(255,255,255,.8),
+    0 0 40px rgba(255,255,255,.5);
+  opacity:0;
+  z-index:6;
+  pointer-events:none;
+  transition:opacity .5s ease;
+}
+
+.shooting-star::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:-200px;
+  width:200px;
+  height:2px;
+  transform:translateY(-50%);
+  background:linear-gradient(90deg,
+    rgba(255,255,255,.8),
+    rgba(255,255,255,.4),
+    transparent);
+}
+
+
+/* Movimiento más natural */
+@keyframes shooting{
+  0%{
+    opacity:0;
+    transform:translate(0,0) rotate(25deg);
+  }
+
+  5%{
+    opacity:1;
+  }
+
+  15%{
+    transform:translate(120vw,50vh) rotate(25deg);
+    opacity:1;
+  }
+
+  20%{
+    opacity:0;
+  }
+
+  100%{
+    opacity:0;
+    transform:translate(120vw,50vh) rotate(25deg);
+  }
+}
 
 </style>
 </head>
@@ -332,16 +419,26 @@ body{
 
 <div class="scene">
 
+<div class="shooting-star star2"></div>
+    
 <div class="moon"></div>
 
 
 <div class="fireflies">
-  <div class="firefly" style="left:10%; top:80%; animation-delay:0s;"></div>
-  <div class="firefly" style="left:25%; top:85%; animation-delay:2s;"></div>
-  <div class="firefly" style="left:40%; top:75%; animation-delay:4s;"></div>
-  <div class="firefly" style="left:60%; top:82%; animation-delay:1s;"></div>
-  <div class="firefly" style="left:75%; top:78%; animation-delay:3s;"></div>
-  <div class="firefly" style="left:85%; top:88%; animation-delay:5s;"></div>
+<div class="firefly" style="left:10%; top:80%; animation-delay:0s;"></div>
+<div class="firefly" style="left:25%; top:85%; animation-delay:2s;"></div>
+<div class="firefly" style="left:40%; top:75%; animation-delay:4s;"></div>
+<div class="firefly" style="left:60%; top:82%; animation-delay:1s;"></div>
+<div class="firefly" style="left:75%; top:78%; animation-delay:3s;"></div>
+<div class="firefly" style="left:85%; top:88%; animation-delay:5s;"></div>
+<div class="firefly" style="left:5%; top:85%; animation-delay:1s;"></div>
+<div class="firefly" style="left:18%; top:78%; animation-delay:3s;"></div>
+<div class="firefly" style="left:32%; top:88%; animation-delay:5s;"></div>
+<div class="firefly" style="left:48%; top:82%; animation-delay:7s;"></div>
+<div class="firefly" style="left:55%; top:90%; animation-delay:2s;"></div>
+<div class="firefly" style="left:70%; top:84%; animation-delay:6s;"></div>
+<div class="firefly" style="left:90%; top:80%; animation-delay:4s;"></div>
+
 </div>
 
     
@@ -390,6 +487,60 @@ function showLove(){
 }
 </script>
 
+<script>
+const star = document.querySelector(".shooting-star");
+
+function randomStar(){
+
+  // 🔵 Solo zona azul (parte superior)
+  const startY = 5 + Math.random() * 25;   // 5% a 30%
+  const startX = Math.random() * 60;
+
+  const angle = 20 + Math.random() * 15;
+
+  const distanceX = 60 + Math.random() * 40;
+  const distanceY = 15 + Math.random() * 15; // Poco descenso
+
+  const duration = 600 + Math.random() * 500;
+
+  star.style.transition = "none";
+  star.style.opacity = "0";
+
+  star.style.top = startY + "%";
+  star.style.left = startX + "%";
+  star.style.transform = `rotate(${angle}deg) translate(0,0)`;
+
+  setTimeout(() => {
+
+    star.style.transition = `
+      transform ${duration}ms linear,
+      opacity ${duration * 0.6}ms ease-out
+    `;
+
+    star.style.opacity = "1";
+    star.style.transform =
+      `rotate(${angle}deg) translate(${distanceX}vw, ${distanceY}vh)`;
+
+  }, 50);
+
+  // Se desvanece antes de bajar demasiado
+  setTimeout(() => {
+    star.style.opacity = "0";
+  }, duration * 0.6);
+}
+
+function randomInterval(){
+  randomStar();
+  const nextTime = 10000 + Math.random() * 15000;
+  setTimeout(randomInterval, nextTime);
+}
+
+setTimeout(randomInterval, 4000);
+</script>
+
+
+
+
 <div class="message">
   Para Cintia, donde el amor florece eternamente.
 </div>
@@ -402,3 +553,4 @@ function showLove(){
 
 </body>
 </html>
+
