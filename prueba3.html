@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campo Infinito para Cintia 🌷</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= RESET ================= */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  overflow:hidden;
+  height:100vh;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.2) 1px, transparent 2px),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,.15) 1px, transparent 2px),
+    linear-gradient(to bottom, #0f1020 0%, #1b1d40 40%, #2e6b2e 75%, #1f4d1f 100%);
+  background-size: 300px 300px, 400px 400px, 100% 100%;
+  perspective: 800px;
+  font-family: 'Great Vibes', cursive;
+}
+
+/* ================= ESCENA ================= */
+.scene{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+}
+
+/* ================= CAPAS ================= */
+.layer{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:space-around;
+  align-items:flex-end;
+  transform-origin:bottom center;
+}
+
+.layer1{ transform:translateZ(-300px) scale(.6); }
+.layer2{ transform:translateZ(-200px) scale(.7); }
+.layer3{ transform:translateZ(-100px) scale(.85); }
+.layer4{ transform:translateZ(-50px) scale(.95); }
+.layer5{ transform:translateZ(0px) scale(1); }
+
+/* ================= TULIPÁN ================= */
+.tulip{
+  position:relative;
+  width:clamp(25px,3vw,40px);
+  height:clamp(140px,20vh,220px);
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  transform-origin:bottom center;
+  opacity:0;
+  cursor:pointer;
+}
+
+/* Tallo */
+.tulip::before{
+  content:"";
+  position:absolute;
+  bottom:0;
+  width:6px;
+  height:70%;
+  background:linear-gradient(to bottom,#4caf50,#1b5e20);
+  border-radius:3px;
+}
+
+/* Hoja */
+.tulip::after{
+  content:"";
+  position:absolute;
+  bottom:40%;
+  width:30px;
+  height:20px;
+  background:linear-gradient(to right,#2e7d32,#66bb6a);
+  border-radius:50% 50% 50% 50% / 80% 80% 20% 20%;
+  transform:rotate(-40deg);
+}
+
+/* Flor */
+.flower{
+  position:absolute;
+  bottom:65%;
+  width:100%;
+  height:45%;
+}
+
+.petal{
+  position:absolute;
+  width:70%;
+  height:100%;
+  border-radius:50% 50% 50% 50% / 80% 80% 20% 20%;
+  box-shadow:
+    inset -4px -6px 10px rgba(0,0,0,.4),
+    0 4px 6px rgba(0,0,0,.2);
+  background:linear-gradient(to bottom,var(--c1),var(--c2));
+}
+
+.center{ z-index:3; width:80%; left:10%; }
+.left{ transform:rotate(-18deg); left:-10%; z-index:2; }
+.right{ transform:rotate(18deg); right:-10%; z-index:1; }
+
+/* ================= COLORES ================= */
+.layer1 .tulip:nth-child(1){ --c1:#ffb3c1; --c2:#ff758f; }
+.layer1 .tulip:nth-child(2){ --c1:#ffc1e3; --c2:#f06292; }
+.layer1 .tulip:nth-child(3){ --c1:#ffd1dc; --c2:#ec407a; }
+
+.layer2 .tulip:nth-child(1){ --c1:#ff80ab; --c2:#d81b60; }
+.layer2 .tulip:nth-child(2){ --c1:#ff99cc; --c2:#c2185b; }
+.layer2 .tulip:nth-child(3){ --c1:#ff6699; --c2:#ad1457; }
+
+.layer3 .tulip:nth-child(1){ --c1:#ff4d6d; --c2:#b71c1c; }
+.layer3 .tulip:nth-child(2){ --c1:#ff4081; --c2:#880e4f; }
+.layer3 .tulip:nth-child(3){ --c1:#f50057; --c2:#6a1b9a; }
+
+.layer4 .tulip:nth-child(1){ --c1:#ff1744; --c2:#b71c1c; }
+.layer4 .tulip:nth-child(2){ --c1:#ff4081; --c2:#ad1457; }
+.layer4 .tulip:nth-child(3){ --c1:#e91e63; --c2:#880e4f; }
+
+.layer5 .tulip:nth-child(1){ --c1:#ff0033; --c2:#990000; }
+.layer5 .tulip:nth-child(2){ --c1:#ff1a75; --c2:#660033; }
+.layer5 .tulip:nth-child(3){ --c1:#ff0055; --c2:#800040; }
+
+/* ================= ANIMACIONES ================= */
+@keyframes grow{
+  0%{ transform:scaleY(0); opacity:0;}
+  100%{ transform:scaleY(1); opacity:1;}
+}
+
+@keyframes sway{
+  0%,100%{ transform:rotateZ(-2deg);}
+  50%{ transform:rotateZ(2deg);}
+}
+
+.layer1 .tulip{ animation:grow 4s forwards .5s, sway 6s infinite ease-in-out 4s;}
+.layer2 .tulip{ animation:grow 4s forwards 1s, sway 5.5s infinite ease-in-out 4s;}
+.layer3 .tulip{ animation:grow 4s forwards 1.5s, sway 5s infinite ease-in-out 4s;}
+.layer4 .tulip{ animation:grow 4s forwards 2s, sway 4.5s infinite ease-in-out 4s;}
+.layer5 .tulip{ animation:grow 4s forwards 2.5s, sway 4s infinite ease-in-out 4s;}
+
+.tulip:active{
+  filter:brightness(1.3);
+}
+
+/* ================= MENSAJE CENTRAL ================= */
+.message{
+  position:absolute;
+  width:100%;
+  text-align:center;
+  top:40%;
+  font-size:clamp(28px,5vw,60px);
+  color:#fff;
+  text-shadow:0 0 15px rgba(255,255,255,.6);
+  opacity:0;
+  animation:fadeIn 3s forwards 8s;
+}
+
+@keyframes fadeIn{ to{opacity:1;} }
+
+/* ================= MENSAJE CLIC ================= */
+.love-message{
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 20px 35px;
+  border-radius: 40px;
+  font-size: clamp(22px, 4vw, 40px);
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all .6s ease;
+  text-shadow: 0 0 15px rgba(255,255,255,.6);
+}
+
+.love-message.active{
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* ================= ABEJAS ================= */
+.bee{
+  position:absolute;
+  width:22px;
+  height:14px;
+  border-radius:50%;
+  background:repeating-linear-gradient(
+    90deg,#fdd835 0px,#fdd835 5px,#000 5px,#000 10px);
+  top:30%;
+  z-index:10;
+  opacity:0;
+  animation:fly 12s infinite ease-in-out;
+}
+
+.bee::before,
+.bee::after{
+  content:"";
+  position:absolute;
+  width:12px;
+  height:12px;
+  background:rgba(255,255,255,.7);
+  border-radius:50%;
+  top:-6px;
+  animation:flap .2s infinite alternate;
+}
+
+.bee::before{ left:-6px; }
+.bee::after{ right:-6px; }
+
+@keyframes flap{
+  from{ transform:scaleY(1); }
+  to{ transform:scaleY(.6); }
+}
+
+@keyframes fly{
+  0%{ transform:translate(0,0); opacity:1; }
+  20%{ transform:translate(200px,-80px); }
+  40%{ transform:translate(-150px,60px); }
+  60%{ transform:translate(250px,-40px); }
+  80%{ transform:translate(-100px,-70px); }
+  100%{ transform:translate(0,0); opacity:1; }
+}
+/* =============================
+   LUCIÉRNAGAS MÁGICAS
+============================= */
+
+.fireflies{
+  position:absolute;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:15;
+}
+
+.firefly{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:radial-gradient(circle, #ffd54f 0%, #ffb300 60%, transparent 80%);
+  border-radius:50%;
+  filter:blur(0.5px);
+  opacity:0;
+  animation: float 12s infinite ease-in-out;
+}
+
+/* Glow extra */
+.firefly::after{
+  content:"";
+  position:absolute;
+  width:12px;
+  height:12px;
+  background:radial-gradient(circle, rgba(255,213,79,0.4) 0%, transparent 70%);
+  border-radius:50%;
+  top:-3px;
+  left:-3px;
+}
+
+/* Movimiento suave */
+@keyframes float{
+  0%{
+    transform:translate(0,0);
+    opacity:0;
+  }
+  10%{
+    opacity:1;
+  }
+  50%{
+    transform:translate(40px,-60px);
+  }
+  80%{
+    transform:translate(-30px,-120px);
+  }
+  100%{
+    transform:translate(0,-160px);
+    opacity:0;
+  }
+}
+
+/* =============================
+   LUNA BRILLANTE
+============================= */
+
+.moon{
+  position:absolute;
+  top:8%;
+  right:8%;
+  width:clamp(80px,12vw,160px);
+  height:clamp(80px,12vw,160px);
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #ffffff 0%, #e0e0e0 60%, #cfcfcf 100%);
+  box-shadow:
+    0 0 40px rgba(255,255,255,0.6),
+    0 0 80px rgba(255,255,255,0.4),
+    0 0 120px rgba(255,255,255,0.2);
+  z-index:2;
+  animation: moonGlow 6s ease-in-out infinite alternate;
+}
+
+/* Resplandor suave animado */
+@keyframes moonGlow{
+  from{
+    box-shadow:
+      0 0 30px rgba(255,255,255,0.5),
+      0 0 60px rgba(255,255,255,0.3),
+      0 0 100px rgba(255,255,255,0.15);
+  }
+  to{
+    box-shadow:
+      0 0 50px rgba(255,255,255,0.8),
+      0 0 100px rgba(255,255,255,0.5),
+      0 0 150px rgba(255,255,255,0.25);
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+<div class="moon"></div>
+
+
+<div class="fireflies">
+  <div class="firefly" style="left:10%; top:80%; animation-delay:0s;"></div>
+  <div class="firefly" style="left:25%; top:85%; animation-delay:2s;"></div>
+  <div class="firefly" style="left:40%; top:75%; animation-delay:4s;"></div>
+  <div class="firefly" style="left:60%; top:82%; animation-delay:1s;"></div>
+  <div class="firefly" style="left:75%; top:78%; animation-delay:3s;"></div>
+  <div class="firefly" style="left:85%; top:88%; animation-delay:5s;"></div>
+</div>
+
+    
+<div class="bee" style="left:15%; animation-delay:5s;"></div>
+<div class="bee" style="left:40%; animation-delay:6s;"></div>
+<div class="bee" style="left:65%; animation-delay:7s;"></div>
+<div class="bee" style="left:80%; animation-delay:8s;"></div>
+
+
+
+<!-- GENERADOR DE CAPAS -->
+<script>
+function createLayer(className){
+  const layer=document.createElement("div");
+  layer.className="layer "+className;
+  for(let i=0;i<3;i++){
+    layer.innerHTML+=`
+      <div class="tulip" onclick="showLove()">
+        <div class="flower">
+          <div class="petal left"></div>
+          <div class="petal center"></div>
+          <div class="petal right"></div>
+        </div>
+      </div>`;
+  }
+  document.querySelector(".scene").appendChild(layer);
+}
+
+createLayer("layer1");
+createLayer("layer2");
+createLayer("layer3");
+createLayer("layer4");
+createLayer("layer5");
+
+function showLove(){
+  const msg=document.getElementById("loveMessage");
+  const phrases=[
+    "Eres mi flor favorita 🌸",
+    "Desde que te vi, todo florece 🌷",
+    "Mi primavera tiene tu nombre 💖",
+    "Contigo todo es más bonito ✨"
+  ];
+  msg.innerText=phrases[Math.floor(Math.random()*phrases.length)];
+  msg.classList.add("active");
+  setTimeout(()=>msg.classList.remove("active"),3500);
+}
+</script>
+
+<div class="message">
+  Para Cintia, donde el amor florece eternamente.
+</div>
+
+<div class="love-message" id="loveMessage">
+  Desde que te vi, todo florece 🌷
+</div>
+
+</div>
+
+</body>
+</html>
