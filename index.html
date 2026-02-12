@@ -26,6 +26,7 @@ body{
     #1f4d1f 100%
   );
 
+  
 background-size:
   120px 120px,
   200px 200px,
@@ -417,6 +418,10 @@ background-size:
 
 <body>
 
+<audio id="miMusica" preload="auto" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
 <div class="scene">
 
 <div class="shooting-star star2"></div>
@@ -474,12 +479,14 @@ createLayer("layer4");
 createLayer("layer5");
 
 function showLove(){
+  // Esto activa la música al hacer clic
+  document.getElementById("miMusica").play();  
+
   const msg=document.getElementById("loveMessage");
   const phrases=[
-    "Eres mi flor favorita 🌸",
-    "Desde que te vi, todo florece 🌷",
-    "Mi primavera tiene tu nombre 💖",
-    "Contigo todo es más bonito ✨"
+    "Si las flores supieran de tu belleza, se morirían de envidia 🌷",
+    "Ni mil campos de tulipanes igualan tu sonrisa ✨",
+    "El universo se detiene solo para admirar cómo floreces tú 🌌"
   ];
   msg.innerText=phrases[Math.floor(Math.random()*phrases.length)];
   msg.classList.add("active");
@@ -542,7 +549,9 @@ setTimeout(randomInterval, 4000);
 
 
 <div class="message">
-  Para Cintia, donde el amor florece eternamente.
+    "Para Cintia"<br>"
+    “Hay flores que iluminan el jardín,<br>
+      pero tú eres la que me alegra el alma.
 </div>
 
 <div class="love-message" id="loveMessage">
@@ -553,4 +562,3 @@ setTimeout(randomInterval, 4000);
 
 </body>
 </html>
-
